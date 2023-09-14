@@ -1,9 +1,0 @@
-version: 0.1
-endpoints:
-- name: fastwebdav
-  # +required Numeric port value that gets exposed via this endpoint
-  port: 9867
-  type: TCP
-  networkVisibility: Public
-  context: /
-  schemaFilePath: 
