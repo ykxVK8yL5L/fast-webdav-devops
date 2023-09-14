@@ -34,5 +34,6 @@ RUN mkdir -p /etc/fast-webdav
 WORKDIR /root/
 
 ADD fast-webdav-$TARGETARCH$TARGETVARIANT /usr/bin/fast-webdav
+RUN chmod +x /usr/bin/fast-webdav
 #CMD ["/usr/bin/fast-webdav", "--workdir", "/etc/fast-webdav"]
 CMD [ "/entrypoint.sh" ]
