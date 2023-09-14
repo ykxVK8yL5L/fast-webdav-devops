@@ -31,6 +31,7 @@ COPY entrypoint.sh /entrypoint.sh
 RUN apk add --no-cache bash && chmod +x /entrypoint.sh
 RUN mkdir -p /etc/fast-webdav
 WORKDIR /root/
+RUN chmod -R 777 /root
 
 CMD [ "chmod +x fast-webdav-$TARGETARCH$TARGETVARIANT" ]
 ADD fast-webdav-$TARGETARCH$TARGETVARIANT /usr/bin/fast-webdav
