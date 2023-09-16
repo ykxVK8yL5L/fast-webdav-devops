@@ -1,3 +1,3 @@
 #!/bin/bash
 
-alist server --no-prefix 
+/usr/bin/alist server --no-prefix 
