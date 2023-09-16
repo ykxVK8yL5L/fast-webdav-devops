@@ -34,8 +34,8 @@ RUN apk add --no-cache bash && chmod +x /entrypoint.sh
 RUN mkdir -p /etc/fast-webdav
 WORKDIR /root/
 RUN chmod -R 777 /root
-RUN wget "${PROVIDERS_URL}" -O /root/config/providers.ini
-RUN wget "${ENCRYPT_URL}" -O /root/config/encrypt_dirs.ini
+RUN wget "${PROVIDERS_URL}" -O /root/configs/providers.ini
+RUN wget "${ENCRYPT_URL}" -O /root/configs/encrypt_dirs.ini
 
 CMD [ "chmod +x fast-webdav-$TARGETARCH$TARGETVARIANT" ]
 ADD fast-webdav-amd64 /usr/bin/fast-webdav
