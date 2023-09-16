@@ -15,6 +15,8 @@ COPY FastAPI/requirements-${EXT_TYPE}.txt /tmp/requirements.txt
 RUN pip wheel -r /tmp/requirements.txt --wheel-dir /tmp/wheels
 
 FROM python:${PYTHON_VER}-${PYTHON_IMG_TYPE}
+ENV PROVIDERS_URL $PROVIDERS_URL
+ENV ENCRYPT_URL $ENCRYPT_URL
 COPY --from=builder /tmp/wheels/* /tmp/wheels/
 RUN pip install /tmp/wheels/*.whl && rm -rf /tmp
 ARG TARGETARCH
@@ -32,6 +34,8 @@ RUN apk add --no-cache bash && chmod +x /entrypoint.sh
 RUN mkdir -p /etc/fast-webdav
 WORKDIR /root/
 RUN chmod -R 777 /root
+RUN wget $PROVIDERS_URL -O /root/config/providers.ini
+RUN wget $PROVIDERS_URL -O /root/config/encrypt_dirs.ini
 
 CMD [ "chmod +x fast-webdav-$TARGETARCH$TARGETVARIANT" ]
 ADD fast-webdav-amd64 /usr/bin/fast-webdav
