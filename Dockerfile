@@ -38,5 +38,5 @@ ADD fast-webdav-amd64 /usr/bin/fast-webdav
 RUN chmod +x /usr/bin/fast-webdav
 #CMD ["/usr/bin/fast-webdav", "--workdir", "/etc/fast-webdav"]
 CMD [ "/entrypoint.sh" ]
-
+EXPOSE 9867
 USER 10001
