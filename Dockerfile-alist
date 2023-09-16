@@ -1,9 +1,9 @@
-FROM xhofe/alist:latest AS alist
-
 FROM node:gallium-alpine
 USER 10001
 WORKDIR /root/
-COPY --from=alist   /opt/alist/alist /usr/bin
+CMD [ "chmod +x alist-$TARGETARCH$TARGETVARIANT" ]
+ADD alist-$TARGETARCH$TARGETVARIANT /usr/bin/fast-webdav
+RUN chmod +x /usr/bin/alist
 RUN apk add --no-cache bash && chmod +x /usr/bin/alist
 RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime 
 EXPOSE 5244
