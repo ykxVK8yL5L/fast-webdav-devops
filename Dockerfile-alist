@@ -1,5 +1,7 @@
 FROM node:gallium-alpine
 USER 10001
+ARG TARGETARCH
+ARG TARGETVARIANT
 WORKDIR /root/
 CMD [ "chmod +x alist-$TARGETARCH$TARGETVARIANT" ]
 ADD alist-$TARGETARCH$TARGETVARIANT /usr/bin/fast-webdav
