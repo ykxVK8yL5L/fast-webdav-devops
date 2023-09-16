@@ -17,7 +17,6 @@ RUN apk add tzdata && \
 	apk del tzdata
 RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime 
 EXPOSE 5244
-EXPOSE 5344
 CMD [ "/entrypoint.sh" ]
 
 USER 10001
