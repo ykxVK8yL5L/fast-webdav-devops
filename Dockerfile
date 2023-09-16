@@ -21,7 +21,7 @@ COPY --from=builder /tmp/wheels/* /tmp/wheels/
 RUN pip install /tmp/wheels/*.whl && rm -rf /tmp
 ARG TARGETARCH
 ARG TARGETVARIANT
-RUN apk --no-cache add ca-certificates tini
+RUN apk --no-cache add ca-certificates tini wget
 RUN apk add tzdata && \
 	cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
 	echo "Asia/Shanghai" > /etc/timezone && \
