@@ -1,6 +1,7 @@
 FROM xhofe/alist:latest AS alist
 
 FROM node:gallium-alpine
+USER 10001
 WORKDIR /root/
 COPY --from=alist   /opt/alist/alist /usr/bin
 RUN apk add --no-cache bash && chmod +x /usr/bin/alist
