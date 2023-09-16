@@ -14,4 +14,5 @@ RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localt
 EXPOSE 5244
 EXPOSE 5344
 CMD [ "alist","server","--no-prefix"]
+
 USER 10001
