@@ -6,8 +6,13 @@ WORKDIR /root/
 CMD [ "chmod +x alist-$TARGETARCH$TARGETVARIANT" ]
 ADD alist-$TARGETARCH$TARGETVARIANT /usr/bin/alist
 RUN chmod +x /usr/bin/alist
-RUN apk add --no-cache bash && chmod +x /usr/bin/alist
+RUN apk --no-cache add ca-certificates tini
+RUN apk add tzdata && \
+	cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+	echo "Asia/Shanghai" > /etc/timezone && \
+	apk del tzdata
 RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime 
 EXPOSE 5244
 EXPOSE 5344
 CMD [ "alist","server","--no-prefix"]
+USER 10001
