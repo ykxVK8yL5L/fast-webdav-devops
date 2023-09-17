@@ -7,11 +7,10 @@ ARG PYTHON_VER=3.10
 ARG PYTHON_IMG_TYPE=alpine
 ARG EXT_TYPE=essential
 RUN if test "${PYTHON_IMG_TYPE}" = 'alpine' && test "${EXT_TYPE}" != 'essential'; then \
-    apk add --update gcc libxml2-dev libxslt-dev musl-dev make cargo; \
+    apk add --update gcc musl-dev make cargo; \
     elif test "${PYTHON_IMG_TYPE}" = 'slim' && test "${EXT_TYPE}" != 'essential'; then \
-    apt-get update -qq; apt-get install  --no-install-recommends libc6-dev gcc libxml2-dev libxslt-dev make cargo -y;  \
+    apt-get update -qq; apt-get install --no-install-recommends libc6-dev gcc make cargo -y;  \
     fi
-RUN apk add --update gcc libxml2-dev libxslt-dev musl-dev make cargo
 COPY FastAPI/requirements-${EXT_TYPE}.txt /tmp/requirements.txt
 RUN pip wheel -r /tmp/requirements.txt --wheel-dir /tmp/wheels
 
@@ -32,8 +31,13 @@ COPY entrypoint.sh /entrypoint.sh
 RUN apk add --no-cache bash && chmod +x /entrypoint.sh
 RUN mkdir -p /etc/fast-webdav
 WORKDIR /root/
+RUN chmod -R 777 /root
+RUN chmod -R 777 /root/configs
 
-ADD fast-webdav-$TARGETARCH$TARGETVARIANT /usr/bin/fast-webdav
+CMD [ "chmod +x fast-webdav-amd64" ]
+ADD fast-webdav-amd64 /usr/bin/fast-webdav
 RUN chmod +x /usr/bin/fast-webdav
 #CMD ["/usr/bin/fast-webdav", "--workdir", "/etc/fast-webdav"]
 CMD [ "/entrypoint.sh" ]
+EXPOSE 9867
+USER 10001
