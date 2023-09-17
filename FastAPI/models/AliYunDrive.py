@@ -20,7 +20,6 @@ class AliYunDrive():
         # 创建配置文件对象 参数对照alist
         '''
         :param provider: 模型实例名称
-        :param rootPath: 根文件夹路径
         :param refreshToken: 刷新令牌
         '''
         self.config = configparser.SafeConfigParser()
@@ -124,7 +123,7 @@ class AliYunDrive():
                         dav_file = DavFile(id=file['file_id'],provider=self.provider,parent_id=file['parent_file_id'],kind=kind,name=file['name'],size=str(file['size']),create_time=ts_str,sha1=sha1,download_url=download_url) 
                         file_list.append(dav_file)
                     # 暂时不知道maker是啥
-                    if len(result['maker'])<2:
+                    if 'maker' not in result or len(result['maker'])<2:
                         break
                     else:
                         maker = result['maker']
